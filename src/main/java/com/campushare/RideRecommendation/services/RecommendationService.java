@@ -21,5 +21,4 @@ public class RecommendationService {
         return recommendationRepository.save(recommendation);
     }
 
-    // Add more methods as needed
 }

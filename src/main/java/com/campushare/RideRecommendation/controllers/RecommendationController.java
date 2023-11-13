@@ -21,5 +21,4 @@ public class RecommendationController {
         return recommendationService.createRecommendation(recommendation);
     }
 
-    // Add more endpoints as needed
 }
