@@ -1,30 +1,28 @@
 package com.campushare.RideRecommendation.services;
 
+import com.campushare.RideRecommendation.dto.PostDetailDto;
+import com.campushare.RideRecommendation.model.Schedule;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class EventData {
-    // These fields are just examples, you should include what's relevant for your event
     private String userId;
-    private String details; // This could be a JSON string or any other format you choose
+    private String zipcode;
+    private Schedule schedule;
+    private String postId;
+    private String postDetail;
 
-    // Constructor
-    public EventData(String userId, String details) {
+    // Manually implemented constructor
+    public EventData(String userId, String zipcode, Schedule schedule) {
         this.userId = userId;
-        this.details = details;
+        this.zipcode = zipcode;
+        this.schedule = schedule;
     }
 
-    // Getters and Setters
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
+    public EventData(String postId, String postDetail) {
+        this.postId = postId;
+        this.postDetail = postDetail;
     }
 }

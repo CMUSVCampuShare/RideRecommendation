@@ -9,11 +9,12 @@ import org.springframework.stereotype.Service;
 public class RecommendationService {
 
     private final RecommendationRepository recommendationRepository;
+    private final EventManager eventManager;
 
     @Autowired
     public RecommendationService(RecommendationRepository recommendationRepository, EventManager eventManager) {
         this.recommendationRepository = recommendationRepository;
-
+        this.eventManager = eventManager;
         // Subscribe to events using the EventManager
         eventManager.subscribe(EventType.USER_CREATED, this::handleUserCreated);
         eventManager.subscribe(EventType.USER_UPDATED, this::handleUserUpdated);
