@@ -2,6 +2,10 @@ package com.campushare.RideRecommendation.services;
 
 import com.campushare.RideRecommendation.model.Recommendation;
 import com.campushare.RideRecommendation.repositories.RecommendationRepository;
+import com.campushare.RideRecommendation.events.data.EventData;
+import com.campushare.RideRecommendation.events.EventManager;
+import com.campushare.RideRecommendation.utils.EventType;
+import com.campushare.RideRecommendation.events.data.UserEventData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +40,6 @@ public class RecommendationService {
 //        }
 //    }
 
-
     public Recommendation createRecommendation(Recommendation recommendation) {
         // Save the recommendation to the database
         return recommendationRepository.save(recommendation);
@@ -62,8 +65,9 @@ public class RecommendationService {
         recommendationRepository.deleteAll();
     }
 
-    public void generateRecommendations(String userId) {
+    public Recommendation generateRecommendations(String userId) {
         // Generate recommendations for the user with the given ID
         // This could involve running the genetic algorithm to generate new recommendations
+        return null;
     }
 }

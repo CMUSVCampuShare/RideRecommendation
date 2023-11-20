@@ -1,4 +1,4 @@
-package com.campushare.RideRecommendation.services;
+package com.campushare.RideRecommendation.utils;
 
 public enum Status {
     ONGOING,

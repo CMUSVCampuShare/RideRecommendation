@@ -1,4 +1,6 @@
-package com.campushare.RideRecommendation.services;
+package com.campushare.RideRecommendation.events.listeners;
+
+import com.campushare.RideRecommendation.events.data.EventData;
 
 public class UserBehaviorListener implements EventListener {
     @Override

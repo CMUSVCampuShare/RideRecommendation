@@ -2,9 +2,9 @@ package com.campushare.RideRecommendation.kafka;
 
 import com.campushare.RideRecommendation.dto.UserDetailDto;
 import com.campushare.RideRecommendation.dto.PostDetailDto;
-import com.campushare.RideRecommendation.services.EventManager;
-import com.campushare.RideRecommendation.services.EventType;
-import com.campushare.RideRecommendation.services.EventData;
+import com.campushare.RideRecommendation.events.EventManager;
+import com.campushare.RideRecommendation.utils.EventType;
+import com.campushare.RideRecommendation.events.data.EventData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;

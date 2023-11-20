@@ -21,4 +21,13 @@ public class RecommendationController {
         return recommendationService.createRecommendation(recommendation);
     }
 
+    public Recommendation getRecommendation(@RequestBody String userId) {
+        return recommendationService.getRecommendation(userId);
+    }
+
+    @PostMapping
+    public Recommendation generateRecommendations(@RequestBody String userId) {
+        return recommendationService.generateRecommendations(userId);
+    }
+
 }

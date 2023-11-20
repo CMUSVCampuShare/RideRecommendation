@@ -1,10 +1,8 @@
-package com.campushare.RideRecommendation.services;
+package com.campushare.RideRecommendation.events.data;
 
 import com.campushare.RideRecommendation.model.Schedule;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 @Data
 @NoArgsConstructor

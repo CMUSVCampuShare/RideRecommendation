@@ -1,5 +1,7 @@
-package com.campushare.RideRecommendation.services;
+package com.campushare.RideRecommendation.events.data;
 
+import com.campushare.RideRecommendation.utils.Status;
+import com.campushare.RideRecommendation.utils.Type;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -1,4 +1,8 @@
-package com.campushare.RideRecommendation.services;
+package com.campushare.RideRecommendation.events;
+
+import com.campushare.RideRecommendation.events.data.EventData;
+import com.campushare.RideRecommendation.events.listeners.EventListener;
+import com.campushare.RideRecommendation.utils.EventType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
