@@ -16,20 +16,26 @@ public class RecommendationService {
         this.recommendationRepository = recommendationRepository;
         this.eventManager = eventManager;
         // Subscribe to events using the EventManager
-        eventManager.subscribe(EventType.USER_CREATED, this::handleUserCreated);
-        eventManager.subscribe(EventType.USER_UPDATED, this::handleUserUpdated);
+        eventManager.subscribe(EventType.USER_CREATED, this::handleUserEvent);
+        eventManager.subscribe(EventType.USER_UPDATED, this::handleUserEvent);
     }
+
 
     // Example event handler methods
-    private void handleUserCreated(EventData eventData) {
-        // Logic to handle a new user being created
-        // This could involve running the genetic algorithm to generate initial recommendations
+    private void handleUserEvent(EventData eventData) {
+        if (eventData instanceof UserEventData) {
+            UserEventData userEventData = (UserEventData) eventData;
+            generateRecommendations(userEventData.getUserId());
+        }
     }
 
-    private void handleUserUpdated(EventData eventData) {
-        // Logic to handle an existing user's information being updated
-        // This could involve updating the user's recommendations
-    }
+//    private void handleUserUpdated(EventData eventData) {
+//        if (eventData instanceof UserEventData) {
+//            UserEventData userEventData = (UserEventData) eventData;
+//            generateRecommendations(userEventData.getUserId());
+//        }
+//    }
+
 
     public Recommendation createRecommendation(Recommendation recommendation) {
         // Save the recommendation to the database

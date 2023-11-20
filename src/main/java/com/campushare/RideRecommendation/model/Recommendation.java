@@ -13,6 +13,6 @@ public class Recommendation {
     @Id
     private String recommendationId;
     private String userId;
-    private List<Post> posts;
-    private List<User> users;
+//  private List<Post> posts;
+    private List<String> usersIds;
 }

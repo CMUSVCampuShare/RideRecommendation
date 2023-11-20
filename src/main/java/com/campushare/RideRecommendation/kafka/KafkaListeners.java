@@ -29,7 +29,6 @@ public class KafkaListeners {
             UserDetailDto userDetail = objectMapper.readValue(message, UserDetailDto.class);
             String userId = userDetail.getId();
             String zipcode = extractZipCode(userDetail.getAddress());
-            // Assuming Schedule class has entryTime and exitTime fields
             EventData eventData = new EventData(userId, zipcode, userDetail.getSchedule());
             eventManager.notify(EventType.USER_CREATED, eventData);
         } catch (IOException e) {
@@ -48,12 +47,10 @@ public class KafkaListeners {
         }
         String[] parts = address.split(",");
         if (parts.length < 2) {
-            return null; // Address does not contain enough parts to have a zip code
+            return null;
         }
-
-        return parts[parts.length - 1].trim(); // Assuming the zip code is the last part
+        return parts[parts.length - 1].trim();
     }
-
 
     @KafkaListener(topics = "edit_user_topic")
     public void listenToEditUserTopic(String message) {
@@ -70,7 +67,6 @@ public class KafkaListeners {
         }
     }
 
-
     @KafkaListener(topics = "create_post_topic")
     public void listenToCreatePostTopic(String message) {
         try {
@@ -85,8 +81,6 @@ public class KafkaListeners {
             // Properly handle the exception
         }
     }
-
-
 
     @KafkaListener(topics = "edit_post_topic")
     public void listenToEditPostTopic(String message) {
