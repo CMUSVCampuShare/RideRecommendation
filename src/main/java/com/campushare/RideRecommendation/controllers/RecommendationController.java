@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/recommendations")
 public class RecommendationController {
 
+    //private final RecommendationService recommendationService = new RecommendationService();
     private final RecommendationService recommendationService;
 
     @Autowired

@@ -32,13 +32,7 @@ public class RecommendationService {
             generateRecommendations(userEventData.getUserId());
         }
     }
-
-//    private void handleUserUpdated(EventData eventData) {
-//        if (eventData instanceof UserEventData) {
-//            UserEventData userEventData = (UserEventData) eventData;
-//            generateRecommendations(userEventData.getUserId());
-//        }
-//    }
+    
 
     public Recommendation createRecommendation(Recommendation recommendation) {
         // Save the recommendation to the database
