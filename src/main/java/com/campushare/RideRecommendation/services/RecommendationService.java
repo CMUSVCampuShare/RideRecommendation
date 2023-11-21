@@ -32,7 +32,6 @@ public class RecommendationService {
             generateRecommendations(userEventData.getUserId());
         }
     }
-    
 
     public Recommendation createRecommendation(Recommendation recommendation) {
         // Save the recommendation to the database
@@ -42,21 +41,6 @@ public class RecommendationService {
     public Recommendation getRecommendation(String userId) {
         // Retrieve the recommendation from the database
         return recommendationRepository.findByUserId(userId);
-    }
-
-    public Recommendation updateRecommendation(Recommendation recommendation) {
-        // Update the recommendation in the database
-        return recommendationRepository.save(recommendation);
-    }
-
-    public void deleteRecommendation(String userId) {
-        // Delete the recommendation from the database
-        recommendationRepository.deleteById(userId);
-    }
-
-    public void deleteAllRecommendations() {
-        // Delete all recommendations from the database
-        recommendationRepository.deleteAll();
     }
 
     public Recommendation generateRecommendations(String userId) {

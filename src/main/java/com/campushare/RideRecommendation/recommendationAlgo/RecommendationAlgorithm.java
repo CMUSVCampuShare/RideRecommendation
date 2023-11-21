@@ -15,7 +15,7 @@ public class RecommendationAlgorithm  {
         List<String> recommendedUserIds = new ArrayList<>();
         for (User user : allUsers) {
             if (!user.getId().equals(currentUserId) &&
-                    user.getZipcode().equals(currentUserZipcode) &&
+                    user.getZipcode().equals(currentUserZipcode) ||
                     schedulesMatch(user.getSchedule(), currentUserSchedule)) {
                 recommendedUserIds.add(user.getId());
             }
