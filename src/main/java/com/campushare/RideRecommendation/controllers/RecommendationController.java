@@ -17,18 +17,18 @@ public class RecommendationController {
         this.recommendationService = recommendationService;
     }
 
-    @PostMapping
-    public Recommendation createRecommendation(@RequestBody Recommendation recommendation) {
-        return recommendationService.createRecommendation(recommendation);
-    }
-
-    public Recommendation getRecommendation(@RequestBody String userId) {
-        return recommendationService.getRecommendation(userId);
-    }
-
-    @PostMapping
-    public Recommendation generateRecommendations(@RequestBody String userId) {
-        return recommendationService.generateRecommendations(userId);
-    }
+//    @PostMapping
+//    public Recommendation createRecommendation(@RequestBody Recommendation recommendation) {
+//        return recommendationService.createRecommendation(recommendation);
+//    }
+//
+//    public Recommendation getRecommendation(@RequestBody String userId) {
+//        return recommendationService.getRecommendation(userId);
+//    }
+//
+//    @PostMapping
+//    public Recommendation generateRecommendations(@RequestBody String userId) {
+//        return recommendationService.generateRecommendations(userId);
+//    }
 
 }

@@ -1,7 +1,7 @@
-package com.campushare.RideRecommendation.kafka;
+package com.campushare.RideRecommendation.events;
 
 import com.campushare.RideRecommendation.dto.UserDetailDto;
-import com.campushare.RideRecommendation.dto.PostDetailDto;
+//import com.campushare.RideRecommendation.dto.PostDetailDto;
 import com.campushare.RideRecommendation.events.EventManager;
 import com.campushare.RideRecommendation.utils.EventType;
 import com.campushare.RideRecommendation.events.data.EventData;
@@ -66,34 +66,34 @@ public class KafkaListeners {
             // Handle exceptions
         }
     }
-
-    @KafkaListener(topics = "create_post_topic")
-    public void listenToCreatePostTopic(String message) {
-        try {
-            PostDetailDto postDetail = objectMapper.readValue(message, PostDetailDto.class);
-            // Here, you can create and send an event data object to the EventManager
-            // For example, you might want to include the postId and the detail of the post
-            EventData eventData = new EventData(postDetail.getPostId(), postDetail.getDetail());
-            eventManager.notify(EventType.POST_CREATED, eventData);
-        } catch (IOException e) {
-            System.err.println("Error processing message from create_post_topic: " + e.getMessage());
-            e.printStackTrace();
-            // Properly handle the exception
-        }
-    }
-
-    @KafkaListener(topics = "edit_post_topic")
-    public void listenToEditPostTopic(String message) {
-        try {
-            PostDetailDto postDetail = objectMapper.readValue(message, PostDetailDto.class);
-            // Similar to above, but for post updates
-            EventData eventData = new EventData(postDetail.getPostId(), postDetail.getDetail());
-            eventManager.notify(EventType.POST_UPDATED, eventData);
-        } catch (IOException e) {
-            System.err.println("Error processing message from edit_post_topic: " + e.getMessage());
-            e.printStackTrace();
-            // Properly handle the exception
-        }
-    }
+//
+//    @KafkaListener(topics = "create_post_topic")
+//    public void listenToCreatePostTopic(String message) {
+//        try {
+//            PostDetailDto postDetail = objectMapper.readValue(message, PostDetailDto.class);
+//            // Here, you can create and send an event data object to the EventManager
+//            // For example, you might want to include the postId and the detail of the post
+//            EventData eventData = new EventData(postDetail.getPostId(), postDetail.getDetail());
+//            eventManager.notify(EventType.POST_CREATED, eventData);
+//        } catch (IOException e) {
+//            System.err.println("Error processing message from create_post_topic: " + e.getMessage());
+//            e.printStackTrace();
+//            // Properly handle the exception
+//        }
+//    }
+//
+//    @KafkaListener(topics = "edit_post_topic")
+//    public void listenToEditPostTopic(String message) {
+//        try {
+//            PostDetailDto postDetail = objectMapper.readValue(message, PostDetailDto.class);
+//            // Similar to above, but for post updates
+//            EventData eventData = new EventData(postDetail.getPostId(), postDetail.getDetail());
+//            eventManager.notify(EventType.POST_UPDATED, eventData);
+//        } catch (IOException e) {
+//            System.err.println("Error processing message from edit_post_topic: " + e.getMessage());
+//            e.printStackTrace();
+//            // Properly handle the exception
+//        }
+//    }
 
 }
