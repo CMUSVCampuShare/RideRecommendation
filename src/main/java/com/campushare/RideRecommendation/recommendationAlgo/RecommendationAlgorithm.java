@@ -22,8 +22,8 @@ public class RecommendationAlgorithm  {
             List<List<User>> newPopulation = new ArrayList<>();
 
             for (int i = 0; i < populationSize; i++) {
-                List<User> parent1 = selectParent(population);
-                List<User> parent2 = selectParent(population);
+                List<User> parent1 = selectParent(population, currentUserId, currentUserSchedule, currentUserZipcode);
+                List<User> parent2 = selectParent(population, currentUserId, currentUserSchedule, currentUserZipcode);
                 List<User> offspring = crossover(parent1, parent2);
                 mutate(offspring, allUsers);
                 newPopulation.add(offspring);
@@ -36,6 +36,7 @@ public class RecommendationAlgorithm  {
         return convertToUserIds(bestSolution);
     }
 
+
     private List<List<User>> initializePopulation(List<User> allUsers, int populationSize) {
         List<List<User>> population = new ArrayList<>();
         for (int i = 0; i < populationSize; i++) {
@@ -45,18 +46,22 @@ public class RecommendationAlgorithm  {
         return population;
     }
 
-    private List<User> selectParent(List<List<User>> population) {
-        double totalFitness = population.stream().mapToDouble(this::calculateFitness).sum();
+    private List<User> selectParent(List<List<User>> population, String currentUserId, Schedule currentUserSchedule, String currentUserZipcode) {
+        double totalFitness = population.stream()
+                .mapToDouble(individual -> calculateFitness(individual, currentUserId, currentUserSchedule, currentUserZipcode))
+                .sum();
         double slice = random.nextDouble() * totalFitness;
         double total = 0;
         for (List<User> individual : population) {
-            total += calculateFitness(individual);
+            total += calculateFitness(individual, currentUserId, currentUserSchedule, currentUserZipcode);
             if (total >= slice) {
                 return individual;
             }
         }
         return population.get(random.nextInt(population.size()));
     }
+
+
 
     private List<User> crossover(List<User> parent1, List<User> parent2) {
         List<User> offspring = new ArrayList<>();
@@ -75,8 +80,9 @@ public class RecommendationAlgorithm  {
     }
 
     private List<User> selectBest(List<List<User>> population, String currentUserId, Schedule currentUserSchedule, String currentUserZipcode) {
-        return Collections.max(population, Comparator.comparingDouble(individual -> calculateFitness(individual)));
+        return Collections.max(population, Comparator.comparingDouble(individual -> calculateFitness(individual, currentUserId, currentUserSchedule, currentUserZipcode)));
     }
+
 
     private double calculateFitness(List<User> recommendation, String currentUserId, Schedule currentUserSchedule, String currentUserZipcode) {
         double score = 0.0;
