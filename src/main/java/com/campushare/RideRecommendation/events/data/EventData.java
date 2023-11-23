@@ -11,7 +11,6 @@ public class EventData {
     private String zipcode;
     private Schedule schedule;
 
-    // Manually implemented constructor
     public EventData(String userId, String zipcode, Schedule schedule) {
         this.userId = userId;
         this.zipcode = zipcode;

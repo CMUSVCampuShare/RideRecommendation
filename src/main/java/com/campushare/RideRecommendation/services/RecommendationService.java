@@ -1,5 +1,6 @@
 package com.campushare.RideRecommendation.services;
 
+import com.campushare.RideRecommendation.dto.PostDetailDto;
 import com.campushare.RideRecommendation.model.Recommendation;
 import com.campushare.RideRecommendation.model.User;
 import com.campushare.RideRecommendation.repositories.RecommendationRepository;
@@ -7,10 +8,12 @@ import com.campushare.RideRecommendation.repositories.UserRepository;
 import com.campushare.RideRecommendation.events.data.EventData;
 import com.campushare.RideRecommendation.recommendationAlgo.RecommendationAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RecommendationService {
@@ -18,15 +21,22 @@ public class RecommendationService {
     private final RecommendationRepository recommendationRepository;
     private final UserRepository userRepository;
     private final RecommendationAlgorithm recommendationAlgorithm;
+    private final RestTemplate restTemplate;
+    private final String postServiceEndpoint;
 
     @Autowired
     public RecommendationService(RecommendationRepository recommendationRepository,
                                  UserRepository userRepository,
-                                 RecommendationAlgorithm recommendationAlgorithm) {
+                                 RecommendationAlgorithm recommendationAlgorithm,
+                                 RestTemplate restTemplate,
+                                 @Value("${post.service.endpoint}") String postServiceEndpoint) {
         this.recommendationRepository = recommendationRepository;
         this.userRepository = userRepository;
         this.recommendationAlgorithm = recommendationAlgorithm;
+        this.restTemplate = restTemplate;
+        this.postServiceEndpoint = postServiceEndpoint;
     }
+
 
     @Transactional
     public void processUserEventAndSaveRecommendations(EventData eventData) {
@@ -64,6 +74,18 @@ public class RecommendationService {
             recommendationRepository.save(newRecommendation);
         }
     }
+
+    public List<PostDetailDto> getTopPostsForUser(String userId) {
+        Recommendation recommendation = recommendationRepository.findByUserId(userId);
+        if (recommendation == null || recommendation.getUsersIds().isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String url = postServiceEndpoint + "/top-posts?userIds=" + String.join(",", recommendation.getUsersIds());
+        PostDetailDto[] postArray = restTemplate.getForObject(url, PostDetailDto[].class);
+        return postArray != null ? Arrays.asList(postArray) : Collections.emptyList();
+    }
+
 
     public Recommendation createRecommendation(Recommendation recommendation) {
         return recommendationRepository.save(recommendation);

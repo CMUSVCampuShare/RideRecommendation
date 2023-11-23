@@ -1,15 +1,16 @@
 package com.campushare.RideRecommendation.controllers;
 
-import com.campushare.RideRecommendation.model.Recommendation;
+import com.campushare.RideRecommendation.dto.PostDetailDto;
 import com.campushare.RideRecommendation.services.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/recommendations")
 public class RecommendationController {
 
-    //private final RecommendationService recommendationService = new RecommendationService();
     private final RecommendationService recommendationService;
 
     @Autowired
@@ -17,18 +18,9 @@ public class RecommendationController {
         this.recommendationService = recommendationService;
     }
 
-//    @PostMapping
-//    public Recommendation createRecommendation(@RequestBody Recommendation recommendation) {
-//        return recommendationService.createRecommendation(recommendation);
-//    }
-//
-//    public Recommendation getRecommendation(@RequestBody String userId) {
-//        return recommendationService.getRecommendation(userId);
-//    }
-//
-//    @PostMapping
-//    public Recommendation generateRecommendations(@RequestBody String userId) {
-//        return recommendationService.generateRecommendations(userId);
-//    }
+    @GetMapping("/{userId}/top-posts")
+    public List<PostDetailDto> getTopPosts(@PathVariable String userId) {
+        return recommendationService.getTopPostsForUser(userId);
+    }
 
 }

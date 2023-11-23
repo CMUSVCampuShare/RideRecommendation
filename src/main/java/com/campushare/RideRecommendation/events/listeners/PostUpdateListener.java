@@ -4,12 +4,12 @@
 //
 //public class PostUpdateListener implements EventListener {
 //    @Override
-//    public void update(PostEventData postEventData) {
+//    public void update(EventData postEventData) {
 //        // Handle the post update event
 //    }
 //
 //    @Override
-//    public void update(PostEventData eventData) {
+//    public void update(EventData eventData) {
 //
 //    }
 //
