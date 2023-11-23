@@ -10,8 +10,6 @@ public class EventData {
     private String userId;
     private String zipcode;
     private Schedule schedule;
-    private String postId;
-    private String postDetail;
 
     // Manually implemented constructor
     public EventData(String userId, String zipcode, Schedule schedule) {
