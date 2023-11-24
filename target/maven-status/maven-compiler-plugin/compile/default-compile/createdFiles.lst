@@ -1,0 +1,5 @@
+com/campushare/RideRecommendation/model/Post.class
+com/campushare/RideRecommendation/model/User.class
+com/campushare/RideRecommendation/model/Recommendation.class
+com/campushare/RideRecommendation/repositories/RecommendationRepository.class
+com/campushare/RideRecommendation/RideRecommendationApplication.class
