@@ -39,7 +39,6 @@ public class RecommendationAlgorithm  {
     }
 
 
-
     private List<List<User>> initializePopulation(List<User> allUsers, int populationSize) {
         Set<List<User>> population = new HashSet<>(); // Use a Set to ensure uniqueness
         while (population.size() < populationSize) {
@@ -66,7 +65,6 @@ public class RecommendationAlgorithm  {
     }
 
 
-
     private List<User> crossover(List<User> parent1, List<User> parent2) {
         List<User> offspring = new ArrayList<>();
         for (int i = 0; i < parent1.size(); i++) {
@@ -75,6 +73,7 @@ public class RecommendationAlgorithm  {
         return offspring;
     }
 
+
     private void mutate(List<User> individual, List<User> allUsers) {
         for (int i = 0; i < individual.size(); i++) {
             if (random.nextDouble() < mutationRate) {
@@ -82,6 +81,7 @@ public class RecommendationAlgorithm  {
             }
         }
     }
+
 
     private List<User> selectBest(List<List<User>> population, String currentUserId, Schedule currentUserSchedule, String currentUserZipcode) {
         return Collections.max(population, Comparator.comparingDouble(individual -> calculateFitness(individual, currentUserId, currentUserSchedule, currentUserZipcode)));
@@ -107,8 +107,9 @@ public class RecommendationAlgorithm  {
             }
         }
 
-        return score;
+        return score/2;
     }
+
 
     private List<String> convertToUserIds(List<User> users) {
         List<String> userIds = new ArrayList<>();
@@ -117,6 +118,7 @@ public class RecommendationAlgorithm  {
         }
         return userIds;
     }
+
 
     private boolean schedulesMatch(Schedule schedule1, Schedule schedule2) {
         if (schedule1 == null || schedule2 == null) {
