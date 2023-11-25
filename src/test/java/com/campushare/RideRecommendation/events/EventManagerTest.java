@@ -30,7 +30,6 @@ class EventManagerTest {
     void whenSubscribe_thenListenerAdded() {
         eventManager.subscribe(EventType.USER_CREATED, listener1);
 
-        // Manually trigger the notify to see if listener1 is called
         eventManager.notify(EventType.USER_CREATED, new EventData());
 
         verify(listener1).update(any());
@@ -42,7 +41,6 @@ class EventManagerTest {
         eventManager.subscribe(EventType.USER_CREATED, listener1);
         eventManager.unsubscribe(EventType.USER_CREATED, listener1);
 
-        // Manually trigger the notify to see if listener1 is not called
         eventManager.notify(EventType.USER_CREATED, new EventData());
 
         verify(listener1, never()).update(any());
@@ -53,7 +51,6 @@ class EventManagerTest {
         eventManager.subscribe(EventType.USER_UPDATED, listener1);
         eventManager.subscribe(EventType.USER_UPDATED, listener2);
 
-        // Manually trigger the notify to see if both listeners are called
         eventManager.notify(EventType.USER_UPDATED, new EventData());
 
         verify(listener1).update(any());

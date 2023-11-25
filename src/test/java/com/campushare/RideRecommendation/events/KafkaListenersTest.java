@@ -30,7 +30,6 @@ class KafkaListenersTest {
 
     @Test
     void testListenToCreateUserTopic() throws IOException {
-        // Prepare a mock UserDetailDto and corresponding JSON message
         UserDetailDto userDetail = new UserDetailDto();
         userDetail.setId("123");
         userDetail.setAddress("123 Main St, Anytown, AN, 12345");
@@ -53,7 +52,6 @@ class KafkaListenersTest {
 
     @Test
     void testListenToEditUserTopic() throws IOException {
-        // Prepare a mock UserDetailDto and corresponding JSON message
         UserDetailDto userDetail = new UserDetailDto();
         userDetail.setId("123");
         userDetail.setAddress("123 Main St, Anytown, AN, 12345");
