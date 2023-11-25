@@ -33,18 +33,22 @@ public class RecommendationAlgorithm  {
         }
 
         List<User> bestSolution = selectBest(population, currentUserId, currentUserSchedule, currentUserZipcode);
-        return convertToUserIds(bestSolution);
+        List<String> userIds = convertToUserIds(bestSolution);
+
+        return userIds;
     }
+
 
 
     private List<List<User>> initializePopulation(List<User> allUsers, int populationSize) {
-        List<List<User>> population = new ArrayList<>();
-        for (int i = 0; i < populationSize; i++) {
+        Set<List<User>> population = new HashSet<>(); // Use a Set to ensure uniqueness
+        while (population.size() < populationSize) {
             Collections.shuffle(allUsers);
             population.add(new ArrayList<>(allUsers.subList(0, Math.min(10, allUsers.size()))));
         }
-        return population;
+        return new ArrayList<>(population);
     }
+
 
     private List<User> selectParent(List<List<User>> population, String currentUserId, Schedule currentUserSchedule, String currentUserZipcode) {
         double totalFitness = population.stream()
