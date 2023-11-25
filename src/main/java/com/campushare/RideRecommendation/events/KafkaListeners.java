@@ -1,7 +1,6 @@
 package com.campushare.RideRecommendation.events;
 
 import com.campushare.RideRecommendation.dto.UserDetailDto;
-//import com.campushare.RideRecommendation.dto.PostDetailDto;
 import com.campushare.RideRecommendation.events.EventManager;
 import com.campushare.RideRecommendation.utils.EventType;
 import com.campushare.RideRecommendation.events.data.EventData;
@@ -38,9 +37,6 @@ public class KafkaListeners {
         }
     }
 
-    /*
-    Assumes that address is formatted like: "Street Address, City, State, Zip Code"
-     */
     private String extractZipCode(String address) {
         if (address == null || address.isEmpty()) {
             return null;

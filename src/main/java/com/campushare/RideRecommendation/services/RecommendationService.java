@@ -37,7 +37,6 @@ public class RecommendationService {
         this.postServiceEndpoint = postServiceEndpoint;
     }
 
-
     @Transactional
     public void processUserEventAndSaveRecommendations(EventData eventData) {
         // Convert EventData to User model
@@ -80,27 +79,9 @@ public class RecommendationService {
         if (recommendation == null || recommendation.getUsersIds().isEmpty()) {
             return Collections.emptyList();
         }
-
         String url = postServiceEndpoint + "/top-posts?userIds=" + String.join(",", recommendation.getUsersIds());
         PostDetailDto[] postArray = restTemplate.getForObject(url, PostDetailDto[].class);
         return postArray != null ? Arrays.asList(postArray) : Collections.emptyList();
-    }
-
-
-    public Recommendation createRecommendation(Recommendation recommendation) {
-        return recommendationRepository.save(recommendation);
-    }
-
-    public Recommendation getRecommendation(String userId) {
-        return recommendationRepository.findByUserId(userId);
-    }
-
-    public Recommendation updateRecommendation(Recommendation recommendation) {
-        return recommendationRepository.save(recommendation);
-    }
-
-    public void deleteRecommendation(String userId) {
-        recommendationRepository.deleteById(userId);
     }
 
 }
