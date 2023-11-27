@@ -2,6 +2,7 @@ package com.campushare.RideRecommendation.services;
 
 import com.campushare.RideRecommendation.dto.PostDetailDto;
 import com.campushare.RideRecommendation.model.Recommendation;
+import com.campushare.RideRecommendation.model.Schedule;
 import com.campushare.RideRecommendation.model.User;
 import com.campushare.RideRecommendation.repositories.RecommendationRepository;
 import com.campushare.RideRecommendation.repositories.UserRepository;
@@ -37,19 +38,35 @@ public class RecommendationService {
         this.postServiceEndpoint = postServiceEndpoint;
     }
 
-    @Transactional
+    public void processMockUserEventAndSaveRecommendations() {
+        // Create and populate mock EventData for testing
+        for (int i = 10; i <= 20; i++) {
+            EventData eventData = new EventData();
+            eventData.setUserId("user" + i);
+            eventData.setZipcode("12345" + i);
+
+            Schedule schedule = new Schedule();
+            schedule.setEntryTime("09:00");
+            schedule.setExitTime("13:00");
+            eventData.setSchedule(schedule);
+
+            System.out.println("working on user"+ i + "...");
+            processUserEventAndSaveRecommendations(eventData);
+        }
+    }
+
     public void processUserEventAndSaveRecommendations(EventData eventData) {
-        // Convert EventData to User model
         User user = new User();
         user.setId(eventData.getUserId());
         user.setZipcode(eventData.getZipcode());
         user.setSchedule(eventData.getSchedule());
 
-        // Save or update user in the database
         userRepository.save(user);
+        System.out.println("saved user" + eventData.getUserId() + "...");
 
-        // Generate recommendations
         List<User> allUsers = userRepository.findAll();
+
+
         List<String> recommendations = recommendationAlgorithm.generateRecommendations(
                 eventData.getUserId(),
                 eventData.getSchedule(),
@@ -57,9 +74,9 @@ public class RecommendationService {
                 allUsers
         );
 
-        // Save the recommendations
         saveRecommendations(eventData.getUserId(), recommendations);
     }
+
 
     private void saveRecommendations(String userId, List<String> recommendedUserIds) {
         Recommendation existingRecommendation = recommendationRepository.findByUserId(userId);
