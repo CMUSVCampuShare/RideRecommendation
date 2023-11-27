@@ -6,6 +6,8 @@ import com.campushare.RideRecommendation.model.User;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 @Component
 public class RecommendationAlgorithm  {
@@ -92,22 +94,42 @@ public class RecommendationAlgorithm  {
         double score = 0.0;
         double zipcodeWeight = 1;
         double scheduleWeight = 3;
+        int scheduleProximityThreshold = 30;
+        int zipcodeProximityThreshold = 3;
 
         for (User user : recommendation) {
             if (user.getId().equals(currentUserId)) {
                 continue;
             }
 
-            if (user.getZipcode().equals(currentUserZipcode)) {
-                score += zipcodeWeight;
+            int zipcodeDistance = calculateZipcodeDistance(currentUserZipcode, user.getZipcode());
+            if (zipcodeDistance <= zipcodeProximityThreshold) {
+                score += zipcodeWeight * (1 - (double) zipcodeDistance / zipcodeProximityThreshold);
             }
 
-            if (schedulesMatch(user.getSchedule(), currentUserSchedule)) {
-                score += scheduleWeight;
+            int scheduleDifference = Math.abs(calculateTimeDifference(currentUserSchedule, user.getSchedule()));
+            if (scheduleDifference <= scheduleProximityThreshold) {
+                score += scheduleWeight * (1 - (double) scheduleDifference / scheduleProximityThreshold);
             }
         }
 
-        return score/2;
+        return score;
+    }
+
+    private int calculateTimeDifference(Schedule schedule1, Schedule schedule2) {
+        LocalTime entryTime1 = LocalTime.parse(schedule1.getEntryTime());
+        LocalTime entryTime2 = LocalTime.parse(schedule2.getEntryTime());
+        return (int) Math.abs(ChronoUnit.MINUTES.between(entryTime1, entryTime2));
+    }
+
+    private int calculateZipcodeDistance(String zipcode1, String zipcode2) {
+        try {
+            int zip1 = Integer.parseInt(zipcode1);
+            int zip2 = Integer.parseInt(zipcode2);
+            return Math.abs(zip1 - zip2);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid zipcode format");
+        }
     }
 
 
