@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.campushare.RideRecommendation.services.RecommendationServiceTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.236 s - in com.campushare.RideRecommendation.services.RecommendationServiceTest
