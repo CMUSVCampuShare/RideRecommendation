@@ -18,8 +18,7 @@ public class RecommendationController {
         this.recommendationService = recommendationService;
     }
 
-    //@GetMapping("/{userId}/top-posts")
-    @GetMapping("/top-posts")
+    @GetMapping("/{userId}/top-posts")
     public List<PostDetailDto> getTopPosts(@PathVariable String userId) {
         return recommendationService.getTopPostsForUser(userId);
     }

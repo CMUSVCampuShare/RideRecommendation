@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.*;
 
@@ -96,9 +98,27 @@ public class RecommendationService {
         if (recommendation == null || recommendation.getUsersIds().isEmpty()) {
             return Collections.emptyList();
         }
-        String url = postServiceEndpoint + "/top-posts?userIds=" + String.join(",", recommendation.getUsersIds());
-        PostDetailDto[] postArray = restTemplate.getForObject(url, PostDetailDto[].class);
-        return postArray != null ? Arrays.asList(postArray) : Collections.emptyList();
+
+        List<PostDetailDto> aggregatedPosts = new ArrayList<>();
+        // Iterate over each recommended userId and fetch their posts
+        for (String recommendedUserId : recommendation.getUsersIds()) {
+            String url = UriComponentsBuilder.fromHttpUrl(postServiceEndpoint.replace("{userId}", recommendedUserId))
+                    .toUriString();
+
+            try {
+                PostDetailDto[] userPosts = restTemplate.getForObject(url, PostDetailDto[].class);
+                if (userPosts != null) {
+                    aggregatedPosts.addAll(Arrays.asList(userPosts));
+                }
+            } catch (RestClientException e) {
+                // Log the error or handle it accordingly
+                e.printStackTrace();
+            }
+        }
+
+        return aggregatedPosts;
     }
+
+
 
 }
