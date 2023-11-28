@@ -42,7 +42,7 @@ public class RecommendationAlgorithm  {
 
 
     private List<List<User>> initializePopulation(List<User> allUsers, int populationSize) {
-        Set<List<User>> population = new HashSet<>(); // Use a Set to ensure uniqueness
+        Set<List<User>> population = new HashSet<>();
         while (population.size() < populationSize) {
             Collections.shuffle(allUsers);
             population.add(new ArrayList<>(allUsers.subList(0, Math.min(10, allUsers.size()))));
