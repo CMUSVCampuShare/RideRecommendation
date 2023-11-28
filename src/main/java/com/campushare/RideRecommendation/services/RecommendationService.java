@@ -41,16 +41,13 @@ public class RecommendationService {
 
     @Transactional
     public void processUserEventAndSaveRecommendations(EventData eventData) {
-        // Convert EventData to User model
         User user = new User();
         user.setId(eventData.getUserId());
         user.setZipcode(eventData.getZipcode());
         user.setSchedule(eventData.getSchedule());
 
-        // Save or update user in the database
         userRepository.save(user);
 
-        // Generate recommendations
         List<User> allUsers = userRepository.findAll();
         List<String> recommendations = recommendationAlgorithm.generateRecommendations(
                 eventData.getUserId(),
@@ -59,7 +56,6 @@ public class RecommendationService {
                 allUsers
         );
 
-        // Save the recommendations
         saveRecommendations(eventData.getUserId(), recommendations);
     }
 
