@@ -10,6 +10,6 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    topic:
-      create-post-topic-name: create_user_topic
-      edit-post-topic-name: edit_user_topic
+#    topic:
+#      create-user-topic-name: create_user_topic
+#      edit-user-topic-name: edit_user_topic
