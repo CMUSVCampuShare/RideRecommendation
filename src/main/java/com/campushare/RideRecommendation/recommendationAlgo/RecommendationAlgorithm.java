@@ -35,9 +35,12 @@ public class RecommendationAlgorithm  {
         }
 
         List<User> bestSolution = selectBest(population, currentUserId, currentUserSchedule, currentUserZipcode);
-        List<String> userIds = convertToUserIds(bestSolution);
+//        List<String> userIds = convertToUserIds(bestSolution);
+//
+//        return userIds;
 
-        return userIds;
+        Set<String> uniqueUserIds = new HashSet<>(convertToUserIds(bestSolution));
+        return new ArrayList<>(uniqueUserIds);
     }
 
 
