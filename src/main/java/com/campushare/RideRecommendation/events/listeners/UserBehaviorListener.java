@@ -5,12 +5,6 @@ import com.campushare.RideRecommendation.services.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-//import com.campushare.RideRecommendation.model.Recommendation;
-//import com.campushare.RideRecommendation.model.User;
-//import com.campushare.RideRecommendation.repositories.UserRepository;
-//import com.campushare.RideRecommendation.repositories.RecommendationRepository;
-//import com.campushare.RideRecommendation.recommendationAlgo.RecommendationAlgorithm;
-//import java.util.List;
 
 @Component
 public class UserBehaviorListener implements EventListener {

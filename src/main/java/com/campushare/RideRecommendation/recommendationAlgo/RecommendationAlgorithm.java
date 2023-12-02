@@ -126,19 +126,15 @@ public class RecommendationAlgorithm  {
             return Integer.MAX_VALUE; // Or some large value to indicate a significant difference
         }
 
-        LocalTime entryTime1 = convertToLocalTime(schedule1.getEntryTime());
-        LocalTime entryTime2 = convertToLocalTime(schedule2.getEntryTime());
-        LocalTime exitTime1 = convertToLocalTime(schedule1.getExitTime());
-        LocalTime exitTime2 = convertToLocalTime(schedule2.getExitTime());
+        LocalTime entryTime1 = LocalTime.parse(schedule1.getEntryTime());
+        LocalTime entryTime2 = LocalTime.parse(schedule2.getEntryTime());
+        LocalTime exitTime1 = LocalTime.parse(schedule1.getExitTime());
+        LocalTime exitTime2 = LocalTime.parse(schedule2.getExitTime());
 
         int entryTimeDifference = (int) ChronoUnit.MINUTES.between(entryTime1, entryTime2);
         int exitTimeDifference = (int) ChronoUnit.MINUTES.between(exitTime1, exitTime2);
 
         return (entryTimeDifference + exitTimeDifference) / 2; // Average of the two differences
-    }
-
-    private LocalTime convertToLocalTime(Date date) {
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
     }
 
 
@@ -162,14 +158,14 @@ public class RecommendationAlgorithm  {
     }
 
 
-    private boolean schedulesMatch(Schedule schedule1, Schedule schedule2) {
-        if (schedule1 == null || schedule2 == null) {
-            return false;
-        }
-
-        return schedule1.getEntryTime().equals(schedule2.getEntryTime()) ||
-                schedule1.getExitTime().equals(schedule2.getExitTime());
-    }
+//    private boolean schedulesMatch(Schedule schedule1, Schedule schedule2) {
+//        if (schedule1 == null || schedule2 == null) {
+//            return false;
+//        }
+//
+//        return schedule1.getEntryTime().equals(schedule2.getEntryTime()) ||
+//                schedule1.getExitTime().equals(schedule2.getExitTime());
+//    }
 
 //    public List<String> generateRecommendations(String currentUserId, Schedule currentUserSchedule, String currentUserZipcode, List<User> allUsers) {
 //        List<String> recommendedUserIds = new ArrayList<>();

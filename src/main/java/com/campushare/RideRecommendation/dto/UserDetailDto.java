@@ -11,5 +11,7 @@ import lombok.NoArgsConstructor;
 public class UserDetailDto {
     private String id;
     private String address;
-    private Schedule schedule;
+    private String entryTime;
+    private String exitTime;
+    //private Schedule schedule;
 }

@@ -2,6 +2,7 @@ package com.campushare.RideRecommendation.events;
 
 import com.campushare.RideRecommendation.dto.UserDetailDto;
 import com.campushare.RideRecommendation.events.EventManager;
+import com.campushare.RideRecommendation.model.Schedule;
 import com.campushare.RideRecommendation.utils.EventType;
 import com.campushare.RideRecommendation.events.data.EventData;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,12 +29,16 @@ public class KafkaListeners {
             UserDetailDto userDetail = objectMapper.readValue(message, UserDetailDto.class);
             String userId = userDetail.getId();
             String zipcode = extractZipCode(userDetail.getAddress());
-            EventData eventData = new EventData(userId, zipcode, userDetail.getSchedule());
+
+            Schedule schedule = new Schedule();
+            schedule.setEntryTime(userDetail.getEntryTime());
+            schedule.setExitTime(userDetail.getExitTime());
+
+            EventData eventData = new EventData(userId, zipcode, schedule);
             eventManager.notify(EventType.USER_CREATED, eventData);
         } catch (IOException e) {
             System.err.println("Error processing message from create_user_topic: " + e.getMessage());
             e.printStackTrace();
-            // Handle the exception as you see fit
         }
     }
 
@@ -62,7 +67,7 @@ public class KafkaListeners {
             // Handle exceptions
         }
     }
-//
+
 //    @KafkaListener(topics = "create_post_topic")
 //    public void listenToCreatePostTopic(String message) {
 //        try {
