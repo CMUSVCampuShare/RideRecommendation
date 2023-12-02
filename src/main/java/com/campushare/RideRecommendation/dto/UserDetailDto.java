@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class UserDetailDto {
     private String id;
     private String address;
-    private Schedule schedule; // Ensure the Schedule class is accessible and annotated similarly
+    private Schedule schedule;
 }

@@ -6,6 +6,7 @@ import com.campushare.RideRecommendation.model.User;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.time.ZoneId;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
@@ -120,10 +121,26 @@ public class RecommendationAlgorithm  {
     }
 
     private int calculateTimeDifference(Schedule schedule1, Schedule schedule2) {
-        LocalTime entryTime1 = LocalTime.parse(schedule1.getEntryTime());
-        LocalTime entryTime2 = LocalTime.parse(schedule2.getEntryTime());
-        return (int) Math.abs(ChronoUnit.MINUTES.between(entryTime1, entryTime2));
+        if (schedule1.getEntryTime() == null || schedule2.getEntryTime() == null ||
+                schedule1.getExitTime() == null || schedule2.getExitTime() == null) {
+            return Integer.MAX_VALUE; // Or some large value to indicate a significant difference
+        }
+
+        LocalTime entryTime1 = convertToLocalTime(schedule1.getEntryTime());
+        LocalTime entryTime2 = convertToLocalTime(schedule2.getEntryTime());
+        LocalTime exitTime1 = convertToLocalTime(schedule1.getExitTime());
+        LocalTime exitTime2 = convertToLocalTime(schedule2.getExitTime());
+
+        int entryTimeDifference = (int) ChronoUnit.MINUTES.between(entryTime1, entryTime2);
+        int exitTimeDifference = (int) ChronoUnit.MINUTES.between(exitTime1, exitTime2);
+
+        return (entryTimeDifference + exitTimeDifference) / 2; // Average of the two differences
     }
+
+    private LocalTime convertToLocalTime(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+    }
+
 
     private int calculateZipcodeDistance(String zipcode1, String zipcode2) {
         try {
