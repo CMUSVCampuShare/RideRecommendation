@@ -134,7 +134,7 @@ public class RecommendationAlgorithm  {
         int entryTimeDifference = (int) ChronoUnit.MINUTES.between(entryTime1, entryTime2);
         int exitTimeDifference = (int) ChronoUnit.MINUTES.between(exitTime1, exitTime2);
 
-        return (entryTimeDifference + exitTimeDifference) / 2; // Average of the two differences
+        return (entryTimeDifference + exitTimeDifference) / 2;
     }
 
 

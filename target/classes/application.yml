@@ -1,0 +1,15 @@
+#server:
+#  port: 8083
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb+srv://campushareAdmin:campusharePassword@clustercampushare.qhbomhf.mongodb.net/?retryWrites=true&w=majority
+#      database: ride_recommendation
+#  kafka:
+#    bootstrap-servers: 35.219.146.212:9092
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+##    topic:
+##      create-user-topic-name: create_user_topic
+##      edit-user-topic-name: edit_user_topic

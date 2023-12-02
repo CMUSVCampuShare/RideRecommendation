@@ -13,5 +13,4 @@ public class UserDetailDto {
     private String address;
     private String entryTime;
     private String exitTime;
-    //private Schedule schedule;
 }

@@ -59,7 +59,12 @@ public class KafkaListeners {
             UserDetailDto userDetail = objectMapper.readValue(message, UserDetailDto.class);
             String userId = userDetail.getId();
             String zipcode = extractZipCode(userDetail.getAddress());
-            EventData eventData = new EventData(userId, zipcode, userDetail.getSchedule());
+
+            Schedule schedule = new Schedule();
+            schedule.setEntryTime(userDetail.getEntryTime());
+            schedule.setExitTime(userDetail.getExitTime());
+
+            EventData eventData = new EventData(userId, zipcode, schedule);
             eventManager.notify(EventType.USER_UPDATED, eventData);
         } catch (IOException e) {
             e.printStackTrace();
