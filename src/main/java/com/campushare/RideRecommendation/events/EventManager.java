@@ -20,6 +20,7 @@ public class EventManager {
 
     public void subscribe(EventType eventType, EventListener listener) {
         List<EventListener> eventListeners = listeners.get(eventType);
+
         if (eventListeners == null) {
             eventListeners = new ArrayList<>();
             listeners.put(eventType, eventListeners);
@@ -36,8 +37,12 @@ public class EventManager {
 
     public void notify(EventType eventType, EventData data) {
         List<EventListener> eventListeners = listeners.get(eventType);
+        System.out.println("Subscribing to " + eventType + " event.");
+        System.out.println("EventListeners: " + eventListeners);
         if (eventListeners != null) {
             for (EventListener listener : eventListeners) {
+                System.out.println("EventListeners: " + eventListeners);
+                System.out.println("EventData: " + data);
                 listener.update(data);
             }
         }
