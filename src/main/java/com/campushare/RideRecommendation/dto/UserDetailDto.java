@@ -9,8 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDetailDto {
-    private String id;
-    private String address;
-    private String entryTime;
-    private String exitTime;
+    private User user;
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class User {
+        private String userId;
+        private String address;
+        private String entryTime;
+        private String exitTime;
+    }
 }

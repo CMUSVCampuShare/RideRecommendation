@@ -5,6 +5,7 @@ import com.campushare.RideRecommendation.events.EventManager;
 import com.campushare.RideRecommendation.model.Schedule;
 import com.campushare.RideRecommendation.utils.EventType;
 import com.campushare.RideRecommendation.events.data.EventData;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -24,22 +25,17 @@ public class KafkaListeners {
     }
 
     @KafkaListener(topics = "create_user_topic")
-    public void listenToCreateUserTopic(String message) {
-        try {
+    public void listenToCreateUserTopic(String message) throws JsonProcessingException {
             UserDetailDto userDetail = objectMapper.readValue(message, UserDetailDto.class);
-            String userId = userDetail.getId();
-            String zipcode = extractZipCode(userDetail.getAddress());
+            String userId = userDetail.getUser().getUserId();
+            String zipcode = extractZipCode(userDetail.getUser().getAddress());
 
             Schedule schedule = new Schedule();
-            schedule.setEntryTime(userDetail.getEntryTime());
-            schedule.setExitTime(userDetail.getExitTime());
+            schedule.setEntryTime(userDetail.getUser().getEntryTime());
+            schedule.setExitTime(userDetail.getUser().getExitTime());
 
             EventData eventData = new EventData(userId, zipcode, schedule);
             eventManager.notify(EventType.USER_CREATED, eventData);
-        } catch (IOException e) {
-            System.err.println("Error processing message from create_user_topic: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 
     private String extractZipCode(String address) {
@@ -54,23 +50,17 @@ public class KafkaListeners {
     }
 
     @KafkaListener(topics = "edit_user_topic")
-    public void listenToEditUserTopic(String message) {
-        try {
+    public void listenToEditUserTopic(String message) throws JsonProcessingException {
             UserDetailDto userDetail = objectMapper.readValue(message, UserDetailDto.class);
-            String userId = userDetail.getId();
-            String zipcode = extractZipCode(userDetail.getAddress());
+            String userId = userDetail.getUser().getUserId();
+            String zipcode = extractZipCode(userDetail.getUser().getAddress());
 
             Schedule schedule = new Schedule();
-            schedule.setEntryTime(userDetail.getEntryTime());
-            schedule.setExitTime(userDetail.getExitTime());
+            schedule.setEntryTime(userDetail.getUser().getEntryTime());
+            schedule.setExitTime(userDetail.getUser().getExitTime());
 
             EventData eventData = new EventData(userId, zipcode, schedule);
             eventManager.notify(EventType.USER_UPDATED, eventData);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error processing message from edit_user_topic: " + e.getMessage());
-            // Handle exceptions
-        }
     }
 
 //    @KafkaListener(topics = "create_post_topic")

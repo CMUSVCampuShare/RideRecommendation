@@ -1,1 +1,7 @@
+/Users/Sakura/18653_SDA/GroupProject/RideRecommendation/src/test/java/com/campushare/RideRecommendation/events/listeners/UserBehaviorListenerTest.java
+/Users/Sakura/18653_SDA/GroupProject/RideRecommendation/src/test/java/com/campushare/RideRecommendation/events/EventManagerTest.java
+/Users/Sakura/18653_SDA/GroupProject/RideRecommendation/src/test/java/com/campushare/RideRecommendation/controllers/RecommendationControllerTest.java
+/Users/Sakura/18653_SDA/GroupProject/RideRecommendation/src/test/java/com/campushare/RideRecommendation/repositories/RecommendationRepositoryTest.java
+/Users/Sakura/18653_SDA/GroupProject/RideRecommendation/src/test/java/com/campushare/RideRecommendation/events/KafkaListenersTest.java
+/Users/Sakura/18653_SDA/GroupProject/RideRecommendation/src/test/java/com/campushare/RideRecommendation/services/RecommendationServiceTest.java
 /Users/Sakura/18653_SDA/GroupProject/RideRecommendation/src/test/java/com/campushare/RideRecommendation/RideRecommendationApplicationTests.java
