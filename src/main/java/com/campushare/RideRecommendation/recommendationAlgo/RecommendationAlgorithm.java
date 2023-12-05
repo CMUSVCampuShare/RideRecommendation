@@ -138,14 +138,21 @@ public class RecommendationAlgorithm  {
     }
 
 
-    private int calculateZipcodeDistance(String zipcode1, String zipcode2) {
-        try {
-            int zip1 = Integer.parseInt(zipcode1);
-            int zip2 = Integer.parseInt(zipcode2);
-            return Math.abs(zip1 - zip2);
-        } catch (NumberFormatException e) {
+    private boolean isValidZipcode(String zipcode) {
+        return zipcode.matches("\\d{5}");
+    }
+
+
+    public int calculateZipcodeDistance(String zipcode1, String zipcode2) {
+        if (!isValidZipcode(zipcode1) || !isValidZipcode(zipcode2)) {
+            System.out.println("Invalid zipcodes: " + zipcode1 + ", " + zipcode2);
             throw new IllegalArgumentException("Invalid zipcode format");
         }
+
+        int zip1 = Integer.parseInt(zipcode1);
+        int zip2 = Integer.parseInt(zipcode2);
+
+        return Math.abs(zip1 - zip2);
     }
 
 
