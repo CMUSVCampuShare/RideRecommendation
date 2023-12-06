@@ -39,7 +39,7 @@ public class RecommendationService {
         this.postServiceEndpoint = postServiceEndpoint;
     }
 
-    @Transactional
+   @Transactional
     public void processUserEventAndSaveRecommendations(EventData eventData) {
         User user = new User();
         user.setId(eventData.getUserId());
@@ -47,16 +47,20 @@ public class RecommendationService {
         user.setSchedule(eventData.getSchedule());
 
         userRepository.save(user);
+        System.out.println("User saved: " + user);
 
         List<User> allUsers = userRepository.findAll();
+        System.out.println("All users: " + allUsers);
         List<String> recommendations = recommendationAlgorithm.generateRecommendations(
                 eventData.getUserId(),
                 eventData.getSchedule(),
                 eventData.getZipcode(),
                 allUsers
         );
+        System.out.println("Recommendations: " + recommendations);
 
         saveRecommendations(eventData.getUserId(), recommendations);
+        System.out.println("Recommendations saved.");
     }
 
     private void saveRecommendations(String userId, List<String> recommendedUserIds) {

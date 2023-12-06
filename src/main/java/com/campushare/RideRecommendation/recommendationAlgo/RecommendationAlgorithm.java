@@ -13,9 +13,9 @@ import java.time.temporal.ChronoUnit;
 @Component
 public class RecommendationAlgorithm  {
 
-    private final int populationSize = 100;
+    private final int populationSize = 50;
     private final double mutationRate = 0.05;
-    private final int maxGenerations = 100;
+    private final int maxGenerations = 50;
     private Random random = new Random();
 
     public List<String> generateRecommendations(String currentUserId, Schedule currentUserSchedule, String currentUserZipcode, List<User> allUsers) {
@@ -138,21 +138,14 @@ public class RecommendationAlgorithm  {
     }
 
 
-    private boolean isValidZipcode(String zipcode) {
-        return zipcode.matches("\\d{5}");
-    }
-
-
-    public int calculateZipcodeDistance(String zipcode1, String zipcode2) {
-        if (!isValidZipcode(zipcode1) || !isValidZipcode(zipcode2)) {
-            System.out.println("Invalid zipcodes: " + zipcode1 + ", " + zipcode2);
+    private int calculateZipcodeDistance(String zipcode1, String zipcode2) {
+        try {
+            int zip1 = Integer.parseInt(zipcode1);
+            int zip2 = Integer.parseInt(zipcode2);
+            return Math.abs(zip1 - zip2);
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid zipcode format");
         }
-
-        int zip1 = Integer.parseInt(zipcode1);
-        int zip2 = Integer.parseInt(zipcode2);
-
-        return Math.abs(zip1 - zip2);
     }
 
 

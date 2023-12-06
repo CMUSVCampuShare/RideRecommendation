@@ -18,7 +18,9 @@ public class UserBehaviorListener implements EventListener {
 
     @Override
     public void update(EventData eventData) {
+        System.out.println("isUserRelatedEvent: " + isUserRelatedEvent(eventData));
         if (isUserRelatedEvent(eventData)) {
+            System.out.println("Processing user event and saving recommendations...");
             recommendationService.processUserEventAndSaveRecommendations(eventData);
         }
     }
