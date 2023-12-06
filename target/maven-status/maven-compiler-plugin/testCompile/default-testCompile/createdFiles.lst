@@ -1,0 +1,5 @@
+com/campushare/RideRecommendation/events/EventManagerTest.class
+com/campushare/RideRecommendation/events/listeners/UserBehaviorListenerTest.class
+com/campushare/RideRecommendation/controllers/RecommendationControllerTest.class
+com/campushare/RideRecommendation/repositories/RecommendationRepositoryTest.class
+com/campushare/RideRecommendation/RideRecommendationApplicationTests.class
